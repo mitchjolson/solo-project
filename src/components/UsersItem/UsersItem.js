@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class FriendsItem extends Component {
+class UsersItem extends Component {
 
-    handleCollection = () => {
+    handleAdd = () => {
         this.props.dispatch({ type: 'FETCH_FRIEND_COLLECTION', payload: this.props.friend.friend_id })
         this.props.dispatch({ type: 'FETCH_FRIEND_LOG', payload: this.props.friend.friend_id })
         this.props.history.push('/friendcollection')
     }
 
+    checkUser = (user) => {
+        const friends = this.props.reduxStore.friends;
+        for(let i=0; i < friends.length; i++){
+            if( user.username === friends[i].username && friends[i].status === 'accepted'){
+                return <></>;
+            }
+            else if (user.username === friends[i].username && friends[i].status === 'pending') {
+                return <li>
+                        {this.props.user.username} (request pending)
+                    </li>
+            }
+        }
+        return <li>
+                    {this.props.user.username}
+                    <button onClick = {this.handleAdd}>Send Friend Request</button>
+                </li>
+    }
+
     render() {
         return (
             <>
-                <li>
-                    {this.props.friend.username}
-                    <button onClick={this.handleCollection}>Collection</button>
-                </li>
+                {this.checkUser(this.props.user)}
             </>
         );
     }
@@ -25,4 +40,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(mapStateToProps)(FriendsItem);
+export default connect(mapStateToProps)(UsersItem);
