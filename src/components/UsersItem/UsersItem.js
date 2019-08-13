@@ -9,6 +9,7 @@ class UsersItem extends Component {
             user2: this.props.user
         }
         this.props.dispatch({ type: 'SEND_FRIEND_REQUEST', payload: data })
+        // this.props.dispatch({ type: 'FETCH_FRIENDS', payload: this.props.reduxStore.user.id })
     }
 
     checkUser = (user) => {
