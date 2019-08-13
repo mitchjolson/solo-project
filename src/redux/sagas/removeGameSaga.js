@@ -6,7 +6,6 @@ function* removeGame(action) {
     try {
         yield axios.delete(`/api/games/${action.payload.user}`, { data: action.payload });
         yield put({ type: 'FETCH_USER_COLLECTION', payload: action.payload.user })
-        
     } catch (error) {
         console.log('Error removing game from collection:', error);
     }

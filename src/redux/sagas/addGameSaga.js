@@ -1,5 +1,6 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 // worker Saga: will be fired on "REGISTER" actions
 function* addGame(action) {
@@ -24,7 +25,12 @@ function* addGame(action) {
         else{
             console.log('user is already linked to game');
         }
-        alert(`Added ${action.payload.game.name} to your collection!`)
+        Swal.fire({
+            imageUrl: action.payload.game.images.medium,
+            imageAlt: action.payload.game.name,
+            html: `Added ${action.payload.game.name} to your collection!`
+        })
+        yield put ({ type: 'FETCH_USER_COLLECTION', payload: action.payload.user });
     } catch (error) {
         console.log('Error linking game:', error);
     }
@@ -52,6 +58,7 @@ function* addGameFromDetails(action) {
         else {
             console.log('user is already linked to game');
         }
+        yield put ({ type: 'FETCH_USER_COLLECTION', payload: action.payload.user });
     } catch (error) {
         console.log('Error linking game:', error);
     }

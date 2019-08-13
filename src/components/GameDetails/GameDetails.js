@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import categorize from '../Categorize/Categorize'
-
+import Swal from 'sweetalert2';
 
 class GameDetails extends Component {
 
@@ -15,18 +15,49 @@ class GameDetails extends Component {
             user: this.props.reduxStore.user.id
         }
         this.props.dispatch({ type: 'ADD_GAME_FROM_DETAILS', payload: myPayload });
-        alert(`Added ${this.props.reduxStore.gameDetails.name} to your collection.`)
-        this.props.history.push('/search')
+        Swal.fire({
+            imageUrl: this.props.reduxStore.gameDetails.image,
+            imageAlt: this.props.reduxStore.gameDetails.name,
+            html: `Added ${this.props.reduxStore.gameDetails.name} to your collection!`
+        })
+        this.props.history.push('/collection')
     }
 
     handleRemove = () => {
-        const myPayload = {
-            game_id: this.props.reduxStore.gameDetails.atlas_id,
-            user: this.props.reduxStore.user.id
-        }
-        this.props.dispatch({ type: 'REMOVE_GAME_FROM_COLLECTION', payload: myPayload });
-        alert(`Removed ${this.props.reduxStore.gameDetails.name} from your collection.`)
-        this.props.history.push('/collection')
+        // const myPayload = {
+        //     game_id: this.props.reduxStore.gameDetails.atlas_id,
+        //     user: this.props.reduxStore.user.id
+        // }
+        // this.props.dispatch({ type: 'REMOVE_GAME_FROM_COLLECTION', payload: myPayload });
+        // Swal.fire({
+        //     imageUrl: this.props.reduxStore.gameDetails.image,
+        //     imageAlt: this.props.reduxStore.gameDetails.name,
+        //     html: `Removed ${this.props.reduxStore.gameDetails.name} from your collection.`
+        // })        
+        // this.props.history.push('/collection')
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to remove ${this.props.reduxStore.gameDetails.name} from your collection.`,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+            if (result.value) {
+                const myPayload = {
+                    game_id: this.props.reduxStore.gameDetails.atlas_id,
+                    user: this.props.reduxStore.user.id
+                }
+                this.props.dispatch({ type: 'REMOVE_GAME_FROM_COLLECTION', payload: myPayload });
+                Swal.fire(
+                    'Removed!',
+                    `${this.props.reduxStore.gameDetails.name} has been removed from your collection`,
+                    'success'
+                )
+                this.props.history.push('/collection')
+            }
+        })
     }
 
     checkIfOwned = () => {
