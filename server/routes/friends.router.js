@@ -35,7 +35,19 @@ router.get('/users/:id', (req, res) => {
         })
 });
 
-
+router.post('/', (req, res) => {
+    console.log('in post a friend request, req.body is:', req.body)
+    const sqlText = `insert into friends (user1, user2, status) VALUES ($1, $2, 'pending');`;
+    const sqlValues = [req.body.user1, req.body.user2.id];
+    pool.query(sqlText, sqlValues)
+        .then((response) => {
+            res.sendStatus(201)
+        })
+        .catch((error) => {
+            console.log('error posting game', error)
+            res.sendStatus(500)
+        })
+})
 
 
 router.delete('/:id', (req, res) => {
@@ -110,20 +122,6 @@ router.post('/checkgamedbfromdetails', (req, res) => {
             res.sendStatus(500)
         })
 });
-
-router.post('/', (req, res) => {
-    console.log('in post new game to DB')
-    const sqlText = 'insert into games (atlas_id, name, description, publisher, year_published, min_players, max_players, playtime, category, rating, image) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);';
-    const sqlValues = [req.body.id, req.body.name, req.body.description, checkPublisher(req.body.publishers), req.body.year_published, req.body.min_players, req.body.max_players, req.body.max_playtime, checkCategory(req.body.categories), req.body.average_user_rating, req.body.images.medium];
-    pool.query(sqlText, sqlValues)
-        .then((response) => {
-            res.sendStatus(201)
-        })
-        .catch((error) => {
-            console.log('error posting game', error)
-            res.sendStatus(500)
-        })
-})
 
 router.post('/addfromdetails', (req, res) => {
     console.log('in post new game to DB from details, req.body is:', req.body)

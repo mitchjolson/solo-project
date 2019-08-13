@@ -10,6 +10,7 @@ import fetchFriendCollectionSaga from './fetchFriendCollectionSaga';
 import fetchFriendsSaga from './fetchFriendsSaga';
 import fetchFriendLogSaga from './fetchFriendLogSaga';
 import fetchUsersSaga from './fetchUsersSaga';
+import friendRequestSaga from './friendRequestSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -31,5 +32,6 @@ export default function* rootSaga() {
     fetchFriendCollectionSaga(),
     fetchFriendLogSaga(),
     fetchUsersSaga(),
+    friendRequestSaga(),
   ]);
 }

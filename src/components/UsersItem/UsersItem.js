@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 class UsersItem extends Component {
 
     handleAdd = () => {
-        this.props.dispatch({ type: 'FETCH_FRIEND_COLLECTION', payload: this.props.friend.friend_id })
-        this.props.dispatch({ type: 'FETCH_FRIEND_LOG', payload: this.props.friend.friend_id })
-        this.props.history.push('/friendcollection')
+        let data = {
+            user1: this.props.reduxStore.user.id,
+            user2: this.props.user
+        }
+        this.props.dispatch({ type: 'SEND_FRIEND_REQUEST', payload: data })
     }
 
     checkUser = (user) => {
