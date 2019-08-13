@@ -35,6 +35,20 @@ router.get('/users/:id', (req, res) => {
         })
 });
 
+router.get('/requests/:id', (req, res) => {
+    console.log('getting list pending friend requests, req.params.id is:', req.params.id)
+    const sqlText = `select user1, user2, username, status from friends join "user" on friends.user1 = "user".id where friends.user2 = $1 and status = 'pending';`
+    const sqlData = [req.params.id]
+    pool.query(sqlText, sqlData)
+        .then((response) => {
+            res.send(response.rows)
+        })
+        .catch((error) => {
+            console.log('error retrieving user list', error);
+            res.sendStatus(500)
+        })
+});
+
 router.post('/', (req, res) => {
     console.log('in post a friend request, req.body is:', req.body)
     const sqlText = `insert into friends (user1, user2, status) VALUES ($1, $2, 'pending');`;
@@ -49,6 +63,10 @@ router.post('/', (req, res) => {
         })
 })
 
+
+
+
+// not used below
 
 router.delete('/:id', (req, res) => {
     console.log('removing a game from user collection, req.params.id is:', req.params.id)

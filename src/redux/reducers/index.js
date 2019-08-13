@@ -10,6 +10,7 @@ import friends from './friendsReducer';
 import friendCollection from './friendCollectionReducer';
 import friendLog from './friendLogReducer';
 import users from './usersReducer';
+import friendRequests from './friendRequestsReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   friendCollection,
   friendLog,
   users,
+  friendRequests,
 });
 
 export default rootReducer;

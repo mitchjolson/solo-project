@@ -10,6 +10,7 @@ class Friends extends Component {
         console.log('Friends page did mount');
         this.props.dispatch({ type: 'FETCH_FRIENDS', payload: this.props.reduxStore.user.id });
         this.props.dispatch({ type: 'FETCH_USERS', payload: this.props.reduxStore.user.id });
+        this.props.dispatch({ type: 'FETCH_FRIEND_REQUESTS', payload: this.props.reduxStore.user.id })
     }
 
     render() {
@@ -29,8 +30,8 @@ class Friends extends Component {
                     </ul>
                 <h1>Requests</h1>
                     <ul>
-                        {this.props.reduxStore.friends.map((friend, i) => {
-                            return (<PendingItem key={i} friend={friend} history={this.props.history} />);
+                        {this.props.reduxStore.friendRequests.map((request, i) => {
+                            return (<PendingItem key={i} request={request} history={this.props.history} />);
                         })}
                     </ul>
             </>
