@@ -69,10 +69,24 @@ router.put('/approve', (req, res) => {
     const sqlValues = [req.body.user1, req.body.user2];
     pool.query(sqlText, sqlValues)
         .then((response) => {
-            res.sendStatus(201)
+            res.sendStatus(200)
         })
         .catch((error) => {
-            console.log('error posting game', error)
+            console.log('error approving friend request', error)
+            res.sendStatus(500)
+        })
+})
+
+router.delete('/deny', (req, res) => {
+    console.log('denying a friend request, req.body is:', req.body)
+    const sqlText = `delete from friends where user1 = $1 and user2 = $2 and status = 'pending';`
+    const sqlValues = [req.body.user1, req.body.user2]
+    pool.query(sqlText, sqlValues)
+        .then((response) => {
+            res.sendStatus(200)
+        })
+        .catch((error) => {
+            console.log('error denying friend request', error);
             res.sendStatus(500)
         })
 })

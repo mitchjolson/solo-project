@@ -6,8 +6,8 @@ function* approveFriendRequest(action) {
     console.log('in approveFriendRequest, action.payload is', action.payload);
     try {
         yield axios.put(`/api/friends/approve`, action.payload);
-        yield put({ type: 'FETCH_FRIEND_REQUESTS', payload: action.payload.user2 })
         yield put({ type: 'FETCH_FRIENDS', payload: action.payload.user2 })
+        yield put({ type: 'FETCH_FRIEND_REQUESTS', payload: action.payload.user2 })
     } catch (error) {
         console.log('Error approving friend request:', error);
     }
