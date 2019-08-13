@@ -23,6 +23,10 @@ class GameDetails extends Component {
         this.props.history.push('/collection')
     }
 
+    descriptionRender = (description) => {
+        return description
+    }
+
     handleRemove = () => {
         // const myPayload = {
         //     game_id: this.props.reduxStore.gameDetails.atlas_id,
@@ -91,12 +95,11 @@ class GameDetails extends Component {
                     </ul>
                 </div>
                 <div>
-                    <p>{this.props.reduxStore.gameDetails.description}</p>
+                    {this.props.reduxStore.gameDetails.description}
                 </div>
             </>
         )
     }
-
 };
 
 const mapStateToProps = (reduxStore) => ({

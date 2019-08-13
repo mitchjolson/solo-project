@@ -22,7 +22,7 @@ class SearchGamesItem extends Component {
         const gameDeets = {
             atlas_id: this.props.game.id,
             category: this.whyTho(this.props.game.categories[0]),
-            description: this.props.game.description,
+            description: this.props.game.description_preview,
             image: this.props.game.images.medium,
             max_players: this.props.game.max_players,
             min_players: this.props.game.min_players,
