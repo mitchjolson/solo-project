@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FriendsItem from '../FriendsItem/FriendsItem';
 import UsersItem from '../UsersItem/UsersItem';
+import PendingItem from '../PendingItem/PendingItem';
 
 class Friends extends Component {
 
@@ -22,9 +23,15 @@ class Friends extends Component {
                     </ul>
                 <h1>Users</h1>
                     <ul>
-                    {this.props.reduxStore.users.map((user, i) => {
-                        return (<UsersItem key={i} user={user} history={this.props.history} />);
-                    })}
+                        {this.props.reduxStore.users.map((user, i) => {
+                            return (<UsersItem key={i} user={user} history={this.props.history} />);
+                        })}
+                    </ul>
+                <h1>Requests</h1>
+                    <ul>
+                        {this.props.reduxStore.friends.map((friend, i) => {
+                            return (<PendingItem key={i} friend={friend} history={this.props.history} />);
+                        })}
                     </ul>
             </>
         )
