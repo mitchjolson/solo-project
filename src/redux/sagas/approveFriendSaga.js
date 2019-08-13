@@ -2,19 +2,19 @@ import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "REGISTER" actions
-function* friendRequest(action) {
-    console.log('in friendRequest, action.payload is', action.payload);
-    let data = {}
+function* approveFriendRequest(action) {
+    console.log('in approveFriendRequest, action.payload is', action.payload);
     try {
-        yield axios.post(`/api/friends`, action.payload);
-        yield put({ type: 'FETCH_FRIENDS', payload: action.payload.user1 })
+        yield axios.put(`/api/friends/approve`, action.payload);
+        yield put({ type: 'FETCH_FRIEND_REQUESTS', payload: action.payload.user2 })
+        yield put({ type: 'FETCH_FRIENDS', payload: action.payload.user2 })
     } catch (error) {
-        console.log('Error sending friend request:', error);
+        console.log('Error approving friend request:', error);
     }
 }
 
-function* friendRequestSaga() {
-    yield takeEvery('SEND_FRIEND_REQUEST', friendRequest);
+function* approveFriendRequestSaga() {
+    yield takeEvery('APPROVE_FRIEND_REQUEST', approveFriendRequest);
 }
 
-export default friendRequestSaga;
+export default approveFriendRequestSaga;

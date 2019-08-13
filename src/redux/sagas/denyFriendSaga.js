@@ -2,19 +2,18 @@ import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "REGISTER" actions
-function* friendRequest(action) {
-    console.log('in friendRequest, action.payload is', action.payload);
-    let data = {}
+function* denyFriendRequest(action) {
+    console.log('in denyFriendRequest, action.payload is', action.payload);
     try {
-        yield axios.post(`/api/friends`, action.payload);
-        yield put({ type: 'FETCH_FRIENDS', payload: action.payload.user1 })
+        yield axios.put(`/api/friends/deny`, action.payload);
+        yield put({ type: 'FETCH_FRIEND_REQUESTS', payload: action.payload.user2 })
     } catch (error) {
-        console.log('Error sending friend request:', error);
+        console.log('Error denying friend request:', error);
     }
 }
 
-function* friendRequestSaga() {
-    yield takeEvery('SEND_FRIEND_REQUEST', friendRequest);
+function* denyFriendRequestSaga() {
+    yield takeEvery('DENY_FRIEND_REQUEST', denyFriendRequest);
 }
 
-export default friendRequestSaga;
+export default denyFriendRequestSaga;

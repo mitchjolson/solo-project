@@ -63,7 +63,19 @@ router.post('/', (req, res) => {
         })
 })
 
-
+router.put('/approve', (req, res) => {
+    console.log('in approve a friend request, req.body is:', req.body)
+    const sqlText = `update friends set status = 'accepted' where user1 = $1 and user2 = $2;`;
+    const sqlValues = [req.body.user1, req.body.user2];
+    pool.query(sqlText, sqlValues)
+        .then((response) => {
+            res.sendStatus(201)
+        })
+        .catch((error) => {
+            console.log('error posting game', error)
+            res.sendStatus(500)
+        })
+})
 
 
 // not used below
