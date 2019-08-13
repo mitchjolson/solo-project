@@ -88,7 +88,7 @@ class GameDetails extends Component {
                 </div>
                 <div>
                     <ul>
-                        <li>Rating: {this.props.reduxStore.gameDetails.rating}</li>
+                        <li>Rating: {Math.round(this.props.reduxStore.gameDetails.rating * 100) / 100}</li>
                         <li>Players: {this.props.reduxStore.gameDetails.min_players} - {this.props.reduxStore.gameDetails.max_players}</li>
                         <li>Playtime: {this.props.reduxStore.gameDetails.playtime} minutes</li>
                         <li>Category: {categorize(this.props.reduxStore.gameDetails.category)}</li>
