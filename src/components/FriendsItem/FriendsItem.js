@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 
 class FriendsItem extends Component {
 
@@ -20,12 +21,29 @@ class FriendsItem extends Component {
     }
 
     handleRemove = () => {
-        const data = {
-            friend: this.props.friend,
-            user: this.props.reduxStore.user,
-        }
-        this.props.dispatch({ type: 'REMOVE_FRIEND', payload: data });
-    }
+    //     const data = {
+    //         friend: this.props.friend,
+    //         user: this.props.reduxStore.user,
+    //     }
+    //     this.props.dispatch({ type: 'REMOVE_FRIEND', payload: data });
+    // }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to remove ${this.props.friend.username} from your friend list.`,
+            type: 'warning',
+                showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, remove them!'
+            }).then((result) => {
+                const data = {
+                    friend: this.props.friend,
+                    user: this.props.reduxStore.user,
+                }
+                this.props.dispatch({ type: 'REMOVE_FRIEND', payload: data });
+            }
+            )}
+
 
     render() {
         return (
