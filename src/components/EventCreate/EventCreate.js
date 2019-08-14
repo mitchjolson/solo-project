@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 
-class Events extends Component {
+class EventCreate extends Component {
 
     componentDidMount() {
         console.log('events component mounted');
@@ -17,10 +17,9 @@ class Events extends Component {
     render() {
         return (
             <>
-            <div>
-                <h1>Events</h1>
-                <button onClick = {this.handleCreate}>Create an Event</button>
-            </div>
+                <div>
+                    <h1>Create Event</h1>
+                </div>
             </>
         )
     }
@@ -31,4 +30,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 });
 
-export default connect(mapStateToProps)(Events);
+export default connect(mapStateToProps)(EventCreate);
