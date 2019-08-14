@@ -18,7 +18,7 @@ class CollectionItemTable extends Component {
                 <td>{Categorize(this.props.game.category)}</td>
                 <td>{this.props.game.min_players} - {this.props.game.max_players}</td>
                 <td>{this.props.game.playtime}</td>
-                <td>{Math.round(this.props.game.rating * 100) / 100}</td>
+                <td>{Math.round(this.props.game.rating * 10) / 10}</td>
                 <td><button onClick={this.handleDetails}>Details</button></td>
             </tr>
             </>
