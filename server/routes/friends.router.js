@@ -50,7 +50,7 @@ router.get('/requests/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    console.log('in post a friend request, req.body is:', req.body)
+    console.log('in post a friend request, req.body is:', req.body);
     const sqlText = `insert into friends (user1, user2, status) VALUES ($1, $2, 'pending');`;
     const sqlValues = [req.body.user1, req.body.user2.id];
     pool.query(sqlText, sqlValues)
@@ -59,6 +59,22 @@ router.post('/', (req, res) => {
         })
         .catch((error) => {
             console.log('error posting game', error)
+            res.sendStatus(500)
+        })
+})
+
+router.delete('/', (req, res) => {
+    console.log('removing a friend, req.body is:', req.body);
+    const sqlText = `delete from friends where user1 = $1 and user2 = $2;`;
+    const sqlText2 = `delete from friends where user1 = $2 and user2 = $1;`;
+    const sqlValues = [req.body.user.id, req.body.friend.friend_id];
+    pool.query(sqlText, sqlValues)
+    pool.query(sqlText2, sqlValues)
+        .then((response) => {
+            res.sendStatus(200)
+        })
+        .catch((error) => {
+            console.log('error removing friend', error);
             res.sendStatus(500)
         })
 })
