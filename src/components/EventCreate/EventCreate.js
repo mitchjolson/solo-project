@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-
+import Swal from 'sweetalert2';
 
 import EventFriendsItem from '../EventFriendsItem/EventFriendsItem';
 import EventGuestsItem from '../EventGuestsItem/EventGuestsItem';
@@ -34,14 +34,20 @@ class EventCreate extends Component {
         this.setState({
             startDate: date
         });
-        console.log('this.state is:', this.state);
     }
 
     handleChangeFor = (event, propToChange) => {
         this.setState({
             [propToChange]: event.target.value
         })
-        console.log('this.state is:', this.state);
+    }
+
+    handleCreateEvent = () => {
+        Swal.fire({
+            type: 'success',
+            title: `${this.state.title}`,
+            text: 'has been created successfully',
+        })
     }
 
     render() {
@@ -94,6 +100,7 @@ class EventCreate extends Component {
                         })}
                     </ul>
                 </div>
+                <button onClick={this.handleCreateEvent}>Create Event</button>
             </>
         )
     }
