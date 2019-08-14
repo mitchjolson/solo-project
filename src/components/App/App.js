@@ -5,11 +5,8 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import {connect} from 'react-redux';
-
 import Nav from '../Nav/Nav';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import AboutPage from '../AboutPage/AboutPage';
@@ -19,6 +16,7 @@ import SearchGames from '../SearchGames/SearchGames';
 import GameDetails from '../GameDetails/GameDetails';
 import Friends from '../Friends/Friends';
 import FriendCollection from '../FriendCollection/FriendCollection';
+import Events from '../Events/Events';
 
 import './App.css';
 
@@ -77,6 +75,11 @@ class App extends Component {
               exact
               path="/friendcollection"
               component={FriendCollection}
+            />
+            <ProtectedRoute
+              exact
+              path="/events"
+              component={Events}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
