@@ -7,31 +7,51 @@ const app = express();
 app.use(bodyParser.json());
 
 
+router.get('/details/:id', (req, res) => {
+    console.log('getting event details, req.params.id is:', req.params.id)
+    const sqlText = `select * from events where id = $1;`
+    const sqlData = [req.params.id]
+    pool.query(sqlText, sqlData)
+        .then((response) => {
+            res.send(response.rows)
+        })
+        .catch((error) => {
+            console.log('error retrieving event details', error);
+            res.sendStatus(500)
+        })
+});
 
+router.get('/guests/:id', (req, res) => {
+    console.log('getting event guests, req.params.id is:', req.params.id)
+    const sqlText = `select * from events_users where event_id = $1;`
+    const sqlData = [req.params.id]
+    pool.query(sqlText, sqlData)
+        .then((response) => {
+            res.send(response.rows)
+        })
+        .catch((error) => {
+            console.log('error retrieving event guests', error);
+            res.sendStatus(500)
+        })
+});
 
-
-
-
-
-
-
-// router.get('/:id', (req, res) => {
-//     console.log('getting friends for user, req.params.id is:', req.params.id)
-//     const sqlText = `(select username, friends.user2 as friend_ID, status from "user" join friends on friends.user2 = "user".id where friends.user1 = $1) union (select username, friends.user1 as friend_ID, status from "user" join friends on friends.user1 = "user".id where friends.user2 = $1);`
-//     const sqlData = [req.params.id]
-//     pool.query(sqlText, sqlData)
-//         .then((response) => {
-//             res.send(response.rows)
-//         })
-//         .catch((error) => {
-//             console.log('error retrieving friends list', error);
-//             res.sendStatus(500)
-//         })
-// });
+router.get('/games/:id', (req, res) => {
+    console.log('getting event games, req.params.id is:', req.params.id)
+    const sqlText = `select * from events_games where event_id = $1;`
+    const sqlData = [req.params.id]
+    pool.query(sqlText, sqlData)
+        .then((response) => {
+            res.send(response.rows)
+        })
+        .catch((error) => {
+            console.log('error retrieving event games', error);
+            res.sendStatus(500)
+        })
+});
 
 router.get('/:id', (req, res) => {
-    console.log('getting list events for user, req.params.id is:', req.params.id)
-    const sqlText = `(select id, creator_id, title, to_char(date, 'Month DD YYYY'), time, location from events where creator_id = $1) union (select event_id as id, creator_id, title, to_char(date, 'Month DD, YYYY'), time, location from events join events_users on events_users.event_id = events.id where user_id = $1);`
+    console.log('getting list of events for user, req.params.id is:', req.params.id)
+    const sqlText = `(select events.id, creator_id, title, to_char(date, 'Month DD YYYY'), time, location, username from events join "user" on "user".id = events.creator_id where creator_id = $1) union (select event_id as id, creator_id, title, to_char(date, 'Month DD, YYYY'), time, location, username from events join "user" on "user".id = events.creator_id join events_users on events_users.event_id = events.id where user_id = $1);`
     const sqlData = [req.params.id]
     pool.query(sqlText, sqlData)
         .then((response) => {

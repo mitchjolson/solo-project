@@ -15,6 +15,9 @@ import eventCreateGuests from './eventCreateGuestsReducer';
 import eventCreateGames from './eventCreateGamesReducer';
 import eventID from './EventIDReducer';
 import events from './eventsReducer';
+import eventDetails from './eventDetailsReducer';
+import eventGuests from './eventGuestsReducer';
+import eventGames from './eventGamesReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -39,6 +42,9 @@ const rootReducer = combineReducers({
   eventCreateGames,
   eventID,
   events,
+  eventDetails,
+  eventGuests,
+  eventGames,
 });
 
 export default rootReducer;

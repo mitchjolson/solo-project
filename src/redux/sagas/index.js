@@ -17,6 +17,7 @@ import denyFriendSaga from './denyFriendSaga';
 import removeFriendSaga from './removeFriendSaga';
 import createEventSaga from './createEventSaga';
 import fetchEventsSaga from './fetchEventsSaga';
+import fetchEventDetailsSaga from './fetchEventDetailsSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -45,5 +46,6 @@ export default function* rootSaga() {
     removeFriendSaga(),
     createEventSaga(),
     fetchEventsSaga(),
+    fetchEventDetailsSaga(),
   ]);
 }

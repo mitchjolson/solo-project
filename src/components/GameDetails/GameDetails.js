@@ -5,10 +5,6 @@ import Swal from 'sweetalert2';
 
 class GameDetails extends Component {
 
-    componentDidMount = () => {
-        console.log('gameDetails:', this.props.reduxStore.searchGame)
-    }
-
     handleAdd = () => {
         const myPayload = {
             game: this.props.reduxStore.gameDetails,
