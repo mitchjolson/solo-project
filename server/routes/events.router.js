@@ -51,7 +51,7 @@ router.get('/games/:id', (req, res) => {
 
 router.get('/:id', (req, res) => {
     console.log('getting list of events for user, req.params.id is:', req.params.id)
-    const sqlText = `(select events.id, creator_id, title, to_char(date, 'Month DD YYYY'), time, location, username from events join "user" on "user".id = events.creator_id where creator_id = $1) union (select event_id as id, creator_id, title, to_char(date, 'Month DD, YYYY'), time, location, username from events join "user" on "user".id = events.creator_id join events_users on events_users.event_id = events.id where user_id = $1);`
+    const sqlText = `(select events.id, creator_id, title, to_char(date, 'Month DD YYYY'), time, location, username from events join "user" on "user".id = events.creator_id where creator_id = $1) union (select event_id as id, creator_id, title, to_char(date, 'Month DD, YYYY'), time, location, username from events join "user" on "user".id = events.creator_id join events_users on events_users.event_id = events.id where user_id = $1) order by to_char desc;`
     const sqlData = [req.params.id]
     pool.query(sqlText, sqlData)
         .then((response) => {
