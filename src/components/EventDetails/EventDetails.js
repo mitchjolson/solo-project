@@ -19,7 +19,7 @@ class EventDetails extends Component {
         return (
             <>
             <div>
-                <h1>Event Details</h1>
+                <h1>{this.props.reduxStore.eventDetails.title}</h1>
             </div>
             </>
         )

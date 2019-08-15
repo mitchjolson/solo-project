@@ -7,7 +7,7 @@ function* fetchEventDetails(action) {
     try {
         const response = yield axios.get(`/api/Events/Details/${action.payload}`);
         console.log('in fetch event details, response is:', response.data)
-        yield put({ type: 'SET_EVENT_DETAILS', payload: response.data })
+        yield put({ type: 'SET_EVENT_DETAILS', payload: response.data[0] })
     } catch (error) {
         console.log('Error retrieving event details:', error);
     }
