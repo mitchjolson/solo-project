@@ -13,6 +13,7 @@ import users from './usersReducer';
 import friendRequests from './friendRequestsReducer';
 import eventCreateGuests from './eventCreateGuestsReducer';
 import eventCreateGames from './eventCreateGamesReducer';
+import eventID from './EventIDReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   friendRequests,
   eventCreateGuests,
   eventCreateGames,
+  eventID,
 });
 
 export default rootReducer;

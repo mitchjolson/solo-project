@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 function* createEvent(action) {
     try {
         yield axios.post(`/api/events`, action.payload);
+        yield put({ type: 'GET_EVENT_ID', payload: action.payload })
         yield Swal.fire({
             type: 'success',
             title: `${action.payload.title}`,
@@ -16,8 +17,18 @@ function* createEvent(action) {
     }
 }
 
+function* getEventID(action) {
+    try {
+        const response = yield axios.post(`/api/events/eventID`, action.payload);
+        yield put({ type: 'SET_EVENT_ID', payload: response.data[0].id })
+    } catch (error) {
+        console.log('Error setting event ID:', error);
+    }
+}
+
 function* createEventSaga() {
     yield takeEvery('CREATE_EVENT', createEvent);
+    yield takeEvery('GET_EVENT_ID', getEventID)
 }
 
 export default createEventSaga;
