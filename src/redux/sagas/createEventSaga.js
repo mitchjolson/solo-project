@@ -22,8 +22,12 @@ function* createEvent(action) {
             let data = { event_id: response.data[0].id, user_id: action.payload.guests[i].friend_id}
             yield axios.post(`/api/events/eventguests`, data);
         }
+        for (let i = 0; i < action.payload.games.length; i++) {
+            let data = { event_id: response.data[0].id, game_id: action.payload.games[i].atlas_id, creator_id: action.payload.creator_id }
+            yield axios.post(`/api/events/eventgames`, data);
+        }
     } catch (error) {
-        console.log('Error setting event ID:', error);
+        console.log('Error posting guests and games to event:', error);
     }
 }
 
