@@ -23,7 +23,7 @@ router.get('/details/:id', (req, res) => {
 
 router.get('/guests/:id', (req, res) => {
     console.log('getting event guests, req.params.id is:', req.params.id)
-    const sqlText = `select * from events_users where event_id = $1;`
+    const sqlText = `select event_id, user_id, username, status from events_users join "user" on events_users.user_id = "user".id where event_id = $1;`
     const sqlData = [req.params.id]
     pool.query(sqlText, sqlData)
         .then((response) => {

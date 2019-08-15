@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import GuestsItem from '../GuestsItem/GuestsItem';
 
 class EventDetails extends Component {
 
@@ -40,6 +41,26 @@ class EventDetails extends Component {
             </div>
             <div>
                 {this.checkInvite()}
+            </div>
+            <div>
+                <h3>Guest List</h3>
+                <ul>
+                    {this.props.reduxStore.eventGuests.map((guest, i) => {
+                        return (<GuestsItem key={i} guest={guest} history={this.props.history} check='accepted' />);
+                    })}
+                </ul>
+                <h3>Pending Invitations</h3>
+                <ul>
+                    {this.props.reduxStore.eventGuests.map((guest, i) => {
+                        return (<GuestsItem key={i} guest={guest} history={this.props.history} check='pending' />);
+                    })}
+                </ul>
+                <h3>Declined</h3>
+                <ul>
+                    {this.props.reduxStore.eventGuests.map((guest, i) => {
+                        return (<GuestsItem key={i} guest={guest} history={this.props.history} check='declined' />);
+                    })}
+                </ul>
             </div>
             </>
         )
