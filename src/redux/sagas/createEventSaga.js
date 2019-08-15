@@ -16,7 +16,7 @@ function* createEvent(action) {
             let data = { event_id: dataID.data.id, game_id: action.payload.games[i].atlas_id, creator_id: action.payload.creator_id }
             yield axios.post(`/api/events/eventgames`, data);
         }
-        yield Swal.fire({
+        Swal.fire({
             type: 'success',
             title: `${action.payload.title}`,
             text: 'has been created successfully',
