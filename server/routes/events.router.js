@@ -59,11 +59,11 @@ router.get('/requests/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     console.log('in post a new event, req.body is:', req.body);
-    const sqlText = `insert into events (creator_id, title, date, time, location) VALUES ($1, $2, $3, $4, $5);`;
+    const sqlText = `insert into events (creator_id, title, date, time, location) VALUES ($1, $2, $3, $4, $5) RETURNING "id";`;
     const sqlValues = [req.body.creator_id, req.body.title, req.body.date, req.body.time, req.body.location];
     pool.query(sqlText, sqlValues)
         .then((response) => {
-            res.sendStatus(201)
+            res.send(response.rows[0])
         })
         .catch((error) => {
             console.log('error posting game', error)
@@ -72,7 +72,7 @@ router.post('/', (req, res) => {
 })
 
 router.post('/eventID', (req, res) => {
-    console.log('getting event ID, req.body is:', req.body)
+    // console.log('getting event ID, req.body is:', req.body)
     const sqlText = `select id from events where events.title = $1;`
     const sqlData = [req.body.title]
     pool.query(sqlText, sqlData)
@@ -86,8 +86,8 @@ router.post('/eventID', (req, res) => {
 });
 
 router.post('/eventguests', (req, res) => {
-    console.log('in post event guests, req.body is:', req.body);
-    const sqlText = `insert into events_users (event_id, user_id) VALUES ($1, $2);`;
+    // console.log('in post event guests, req.body is:', req.body);
+    const sqlText = `insert into events_users (event_id, user_id, status) VALUES ($1, $2, 'pending');`;
     const sqlValues = [req.body.event_id, req.body.user_id];
     pool.query(sqlText, sqlValues)
         .then((response) => {
@@ -100,7 +100,7 @@ router.post('/eventguests', (req, res) => {
 })
 
 router.post('/eventgames', (req, res) => {
-    console.log('in post event games, req.body is:', req.body);
+    // console.log('in post event games, req.body is:', req.body);
     const sqlText = `insert into events_games (event_id, game_id, user_id) VALUES ($1, $2, $3);`;
     const sqlValues = [req.body.event_id, req.body.game_id, req.body.creator_id];
     pool.query(sqlText, sqlValues)
