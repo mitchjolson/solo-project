@@ -87,8 +87,8 @@ router.post('/eventID', (req, res) => {
 
 router.post('/eventguests', (req, res) => {
     console.log('in post event guests, req.body is:', req.body);
-    const sqlText = `insert into events_users () VALUES ($1, $2);`;
-    const sqlValues = [req.body.creator_id, req.body.title, req.body.date, req.body.time, req.body.location];
+    const sqlText = `insert into events_users (event_id, user_id) VALUES ($1, $2);`;
+    const sqlValues = [req.body.event_id, req.body.user_id];
     pool.query(sqlText, sqlValues)
         .then((response) => {
             res.sendStatus(201)
