@@ -43,11 +43,16 @@ class EventCreate extends Component {
     }
 
     handleCreateEvent = () => {
-        Swal.fire({
-            type: 'success',
-            title: `${this.state.title}`,
-            text: 'has been created successfully',
-        })
+        const data = {
+            creator_id: this.props.reduxStore.user.id,
+            title: this.state.title,
+            date: this.state.startDate,
+            time: this.state.startTime,
+            location: this.state.location,
+            guests: this.props.reduxStore.eventCreateGuests,
+            games: this.props.reduxStore.eventCreateGames
+        }
+        this.props.dispatch({ type: 'CREATE_EVENT', payload: data})
     }
 
     render() {

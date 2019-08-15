@@ -29,7 +29,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/games', gamesRouter);
 app.use('/api/friends', friendsRouter);
-app.use('api/events', eventsRouter);
+app.use('/api/events', eventsRouter);
 
 // Serve static files
 app.use(express.static('build'));

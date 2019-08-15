@@ -59,9 +59,9 @@ router.get('/requests/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    console.log('in post a friend request, req.body is:', req.body);
-    const sqlText = `insert into friends (user1, user2, status) VALUES ($1, $2, 'pending');`;
-    const sqlValues = [req.body.user1, req.body.user2.id];
+    console.log('in post a new event, req.body is:', req.body);
+    const sqlText = `insert into events (creator_id, title, date, time, location) VALUES ($1, $2, $3, $4, $5);`;
+    const sqlValues = [req.body.creator_id, req.body.title, req.body.date, req.body.time, req.body.location];
     pool.query(sqlText, sqlValues)
         .then((response) => {
             res.sendStatus(201)
