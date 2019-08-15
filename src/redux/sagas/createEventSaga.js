@@ -19,7 +19,7 @@ function* createEvent(action) {
         Swal.fire({
             type: 'success',
             title: `${action.payload.title}`,
-            text: 'has been created successfully',
+            text: 'has been created successfully.',
         })
     } catch (error) {
         console.log('Error posting event:', error);

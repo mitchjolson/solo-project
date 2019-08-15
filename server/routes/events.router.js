@@ -29,6 +29,20 @@ app.use(bodyParser.json());
 //         })
 // });
 
+router.get('/:id', (req, res) => {
+    console.log('getting list events for user, req.params.id is:', req.params.id)
+    const sqlText = `(select id, creator_id, title, to_char(date, 'Month DD YYYY'), time, location from events where creator_id = $1) union (select event_id as id, creator_id, title, to_char(date, 'Month DD, YYYY'), time, location from events join events_users on events_users.event_id = events.id where user_id = $1);`
+    const sqlData = [req.params.id]
+    pool.query(sqlText, sqlData)
+        .then((response) => {
+            res.send(response.rows)
+        })
+        .catch((error) => {
+            console.log('error retrieving events list', error);
+            res.sendStatus(500)
+        })
+});
+
 router.get('/users/:id', (req, res) => {
     console.log('getting list of users, req.params.id is:', req.params.id)
     const sqlText = 'select id, username from "user" where not "user".id = $1;'

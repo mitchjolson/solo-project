@@ -8,6 +8,7 @@ class Events extends Component {
         console.log('events component mounted');
         this.props.dispatch({ type: 'FETCH_USER_COLLECTION', payload: this.props.reduxStore.user.id });
         this.props.dispatch({ type: 'FETCH_FRIENDS', payload: this.props.reduxStore.user.id });
+        this.props.dispatch({ type: 'FETCH_EVENTS', payload: this.props.reduxStore.user.id});
     }
 
     handleCreate = () => {
