@@ -7,9 +7,6 @@ class EventsItem extends Component {
 
     handleDetails = () => {
         this.props.dispatch({ type: 'SET_EVENT_ID', payload: this.props.event.id })
-        // this.props.dispatch({ type: 'FETCH_EVENT_DETAILS', payload: this.props.event.id});
-        // this.props.dispatch({ type: 'FETCH_EVENT_GUESTS', payload: this.props.event.id });
-        // this.props.dispatch({ type: 'FETCH_EVENT_GAMES', payload: this.props.event.id });
         this.props.history.push('/eventdetails')
     }
 

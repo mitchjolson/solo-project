@@ -147,6 +147,34 @@ router.post('/eventgames', (req, res) => {
         })
 })
 
+router.put('/accept', (req, res) => {
+    console.log('in accept an event invitation, req.body is:', req.body)
+    const sqlText = `update events_users set status = 'accepted' where event_id = $1 and user_id = $2;`;
+    const sqlValues = [req.body.event_id, req.body.user_id];
+    pool.query(sqlText, sqlValues)
+        .then((response) => {
+            res.sendStatus(200)
+        })
+        .catch((error) => {
+            console.log('error accepting event invitation', error)
+            res.sendStatus(500)
+        })
+})
+
+router.put('/decline', (req, res) => {
+    console.log('in decline an event invitation, req.body is:', req.body)
+    const sqlText = `update events_users set status = 'declined' where event_id = $1 and user_id = $2;`;
+    const sqlValues = [req.body.event_id, req.body.user_id];
+    pool.query(sqlText, sqlValues)
+        .then((response) => {
+            res.sendStatus(200)
+        })
+        .catch((error) => {
+            console.log('error declining event invitation', error)
+            res.sendStatus(500)
+        })
+})
+
 // router.delete('/', (req, res) => {
 //     console.log('removing a friend, req.body is:', req.body);
 //     const sqlText = `delete from friends where user1 = $1 and user2 = $2;`;
