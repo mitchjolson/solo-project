@@ -43,6 +43,7 @@ class EventDetails extends Component {
                 {this.checkInvite()}
             </div>
             <div>
+                <h3>Host: {this.props.reduxStore.eventDetails.host}</h3>
                 <h3>Guest List</h3>
                 <ul>
                     {this.props.reduxStore.eventGuests.map((guest, i) => {
@@ -58,6 +59,14 @@ class EventDetails extends Component {
                 <h3>Declined</h3>
                 <ul>
                     {this.props.reduxStore.eventGuests.map((guest, i) => {
+                        return (<GuestsItem key={i} guest={guest} history={this.props.history} check='declined' />);
+                    })}
+                </ul>
+            </div>
+            <div>
+                <h3>Agenda</h3>
+                <ul>
+                    {this.props.reduxStore.eventGames.map((guest, i) => {
                         return (<GuestsItem key={i} guest={guest} history={this.props.history} check='declined' />);
                     })}
                 </ul>
