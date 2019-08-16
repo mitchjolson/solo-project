@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 class GuestsItem extends Component {
 
     checkStatus = (guest) => {
-        console.log('guest.status:', guest.status, 'this.props.guest.check:', this.propscheck)
         if(guest.status === this.props.check){
             return (<li>
                         {guest.username}

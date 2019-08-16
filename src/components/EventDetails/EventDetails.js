@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GuestsItem from '../GuestsItem/GuestsItem';
+import GamesItem from '../GamesItem/GamesItem';
+import CollectionItemList from '../CollectionItem/CollectionItemList';
 
 class EventDetails extends Component {
 
@@ -38,12 +40,12 @@ class EventDetails extends Component {
             <>
             <div>
                 <h1>{this.props.reduxStore.eventDetails.title}</h1>
+                <h3>Hosted by {this.props.reduxStore.eventDetails.host}</h3>
             </div>
             <div>
                 {this.checkInvite()}
             </div>
             <div>
-                <h3>Host: {this.props.reduxStore.eventDetails.host}</h3>
                 <h3>Guest List</h3>
                 <ul>
                     {this.props.reduxStore.eventGuests.map((guest, i) => {
@@ -66,8 +68,14 @@ class EventDetails extends Component {
             <div>
                 <h3>Agenda</h3>
                 <ul>
-                    {this.props.reduxStore.eventGames.map((guest, i) => {
-                        return (<GuestsItem key={i} guest={guest} history={this.props.history} check='declined' />);
+                    {this.props.reduxStore.eventGames.map((game, i) => {
+                        return (<GamesItem key={i} game={game} history={this.props.history} check='declined' />);
+                    })}
+                </ul>
+                <h3>My Games</h3>
+                <ul>
+                    {this.props.reduxStore.userCollection.map((game, i) => {
+                        return (<CollectionItemList key={i} game={game} history={this.props.history} check='declined' />);
                     })}
                 </ul>
             </div>
