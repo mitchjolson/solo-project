@@ -30,10 +30,9 @@ class Collection extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      view: this.props.reduxStore.collectionView
-    })
+    this.setState({ view: this.props.reduxStore.collectionView });
     this.props.dispatch({ type: 'FETCH_USER_COLLECTION', payload: this.props.reduxStore.user.id });
+    this.props.dispatch({ type: 'CHECK_FLAG', payload: this.props.reduxStore.user.id });
   }
 
   setView = (selectedView) => {

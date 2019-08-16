@@ -25,10 +25,6 @@ class EventCreate extends Component {
         this.props.dispatch({ type: 'EVENT_CREATE_GAMES_RESET' });
     }
 
-    handleCreate = () => {
-        this.props.history.push('/eventcreate')
-    }
-
     handleChange = (date) => {
         this.setState({
             startDate: date
