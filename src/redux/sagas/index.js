@@ -20,6 +20,7 @@ import fetchEventsSaga from './fetchEventsSaga';
 import fetchEventDetailsSaga from './fetchEventDetailsSaga';
 import acceptEventInviteSaga from './acceptEventInviteSaga';
 import declineEventInviteSaga from './declineEventInviteSaga';
+import addEventGameSaga from './addEventGameSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -51,5 +52,6 @@ export default function* rootSaga() {
     fetchEventDetailsSaga(),
     acceptEventInviteSaga(),
     declineEventInviteSaga(),
+    addEventGameSaga(),
   ]);
 }

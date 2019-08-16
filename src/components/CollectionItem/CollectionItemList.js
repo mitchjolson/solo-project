@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 class CollectionItemList extends Component {
 
     handleAdd = () => {
-        this.props.dispatch({ type: 'SET_GAME_DETAILS', payload: this.props.game })
-        this.props.history.push('/gamedetails')
+        const data = {event_id: this.props.reduxStore.eventID, game_id: this.props.game.atlas_id, user_id: this.props.reduxStore.user.id};
+        this.props.dispatch({ type: 'ADD_EVENT_GAME', payload: data })
     }
 
     render() {

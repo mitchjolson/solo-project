@@ -105,6 +105,20 @@ router.post('/', (req, res) => {
         })
 })
 
+router.post('/addgame', (req, res) => {
+    console.log('in post a new game to event, req.body is:', req.body);
+    const sqlText = `insert into events_games (event_id, game_id, user_id) VALUES ($1, $2, $3);`;
+    const sqlValues = [req.body.event_id, req.body.game_id, req.body.user_id];
+    pool.query(sqlText, sqlValues)
+        .then((response) => {
+            res.sendStatus(201)
+        })
+        .catch((error) => {
+            console.log('error posting event game', error)
+            res.sendStatus(500)
+        })
+})
+
 router.post('/eventID', (req, res) => {
     // console.log('getting event ID, req.body is:', req.body)
     const sqlText = `select id from events where events.title = $1;`
