@@ -6,11 +6,38 @@ import CollectionItemList from '../CollectionItem/CollectionItemList';
 
 class EventDetails extends Component {
 
+    state = {
+        addGames: 0,
+    }
+
     componentDidMount() {
         console.log('eventDetails component mounted');
         this.props.dispatch({ type: 'FETCH_EVENT_DETAILS', payload: this.props.reduxStore.eventID });
         this.props.dispatch({ type: 'FETCH_EVENT_GUESTS', payload: this.props.reduxStore.eventID });
         this.props.dispatch({ type: 'FETCH_EVENT_GAMES', payload: this.props.reduxStore.eventID });
+    }
+
+    addGames = () => {
+        for(let i=0; i<this.props.reduxStore.eventGuests.length; i++){
+            if( this.props.reduxStore.user.id === this.props.reduxStore.eventGuests[i].user_id && this.props.reduxStore.eventGuests[i].status === 'accepted'){
+                console.log('in addgames, this.state.addGames =', this.state.addGames)
+                if (this.state.addGames === 1) {
+                    return <><h3>My Games</h3>
+                        <ul>
+                            {this.props.reduxStore.userCollection.map((game, i) => {
+                                return (<CollectionItemList key={i} game={game} history={this.props.history} check='declined' />);
+                            })}
+                        </ul></>
+                }
+                else {
+                    return <button onClick={() => this.setAddGames()}>Add Games</button>
+                }
+            }
+        }
+    }
+
+    setAddGames = () => {
+        this.setState({addGames: 1});
     }
 
     handleCreate = () => {
@@ -72,12 +99,13 @@ class EventDetails extends Component {
                         return (<GamesItem key={i} game={game} history={this.props.history} check='declined' />);
                     })}
                 </ul>
-                <h3>My Games</h3>
+                {this.addGames()}
+                {/* <h3>My Games</h3>
                 <ul>
                     {this.props.reduxStore.userCollection.map((game, i) => {
                         return (<CollectionItemList key={i} game={game} history={this.props.history} check='declined' />);
                     })}
-                </ul>
+                </ul> */}
             </div>
             </>
         )
