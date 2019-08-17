@@ -25,6 +25,19 @@ dark vanilla: #BDC4A7
 cinereous: #93827F
 */
 
+.collectionTable {
+    text-align: center;
+    width: 500;
+}
+
+.viewButton {
+    margin: 10px;
+}
+
+.collectionDiv {
+    text-align: center;
+}
+
 .loginform {
     background-color: #2F2F2F;
     color: white;
