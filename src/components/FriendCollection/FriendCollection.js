@@ -39,9 +39,10 @@ const styles = theme => ({
     display: 'none',
   },
   root: {
-    width: '100%',
+    width: '80%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
+    margin: "auto",
   },
   table: {
     minWidth: 700,
@@ -86,6 +87,9 @@ class FriendCollection extends Component {
         </>
       )
     }
+    else if(this.state.view === 'log'){
+      return <FriendLog />
+    }
     else{
       return (
         <>
@@ -114,9 +118,9 @@ class FriendCollection extends Component {
         <h1>{this.props.reduxStore.activeFriend}'s Collection</h1>
         <Button variant='contained' className={classes.button} onClick={() => this.setView('table')}>Table View</Button>
         <Button variant='contained' className={classes.button} onClick={() => this.setView('grid')}>Grid View</Button>
+        <Button variant='contained' className={classes.button} onClick={() => this.setView('log')}>Activity Log</Button>
       </div>
       {this.loadView()}
-      <FriendLog/>
       </>
     )
   }

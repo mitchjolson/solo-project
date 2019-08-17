@@ -25,6 +25,19 @@ dark vanilla: #BDC4A7
 cinereous: #93827F
 */
 
+.what {
+    text-align: center;
+}
+
+.activityLog {
+    background-color: #BDC4A7;
+    border: 1px solid black;
+    width: 50%;
+    margin: 10px;
+    padding: 10px;
+    display: inline-block;
+}
+
 .collectionTable {
     text-align: center;
     width: 500;
@@ -83,6 +96,7 @@ input {
 }
 
 .div-grid {
+    text-align: center;
     float: left;
     border: 1px solid black;
     margin: 5px;

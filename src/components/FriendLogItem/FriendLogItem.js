@@ -13,9 +13,9 @@ class FriendsItem extends Component {
     render() {
         return (
             <>
-                <li>
-                    {this.props.activity.username} {this.rename(this.props.activity.action)} {this.props.activity.name} on {this.props.activity.to_char}.
-                </li>
+                <p>
+                    {this.props.activity.name} {this.rename(this.props.activity.action)} on {this.props.activity.to_char}.
+                </p>
             </>
         );
     }

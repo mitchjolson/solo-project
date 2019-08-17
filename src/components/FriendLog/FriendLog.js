@@ -12,12 +12,14 @@ class FriendLog extends Component {
     render() {
         return (
             <>
-                <h1>Activity Log</h1>
-                    <ul>
+            <div className='what'>
+            <div className='activityLog'>
+                <h3>Activity Log</h3>
                         {this.props.reduxStore.friendLog.map((activity, i) => {
                             return (<FriendLogItem key={i} activity={activity}/>);
                         })}
-                    </ul>
+            </div>
+            </div>
             </>
         )
     }
