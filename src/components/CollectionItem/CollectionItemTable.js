@@ -68,7 +68,7 @@ class CollectionItemTable extends Component {
                 <CustomTableCell align="right">{this.props.game.min_players} - {this.props.game.max_players}</CustomTableCell>
                 <CustomTableCell align="right">{this.props.game.playtime}</CustomTableCell>
                 <CustomTableCell align="right">{Math.round(this.props.game.rating * 10) / 10}</CustomTableCell>
-                <CustomTableCell><Button variant='contained' className={classes.button}onClick={this.handleDetails}>Details</Button></CustomTableCell>
+                <CustomTableCell><Button variant='contained' size='small' className={classes.button}onClick={this.handleDetails}>Details</Button></CustomTableCell>
             </TableRow>
             </>
         );

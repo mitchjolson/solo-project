@@ -3,6 +3,20 @@ import { connect } from 'react-redux';
 import categorize from '../Categorize/Categorize'
 import Swal from 'sweetalert2';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
+
 class GameDetails extends Component {
 
     handleAdd = () => {
@@ -61,38 +75,37 @@ class GameDetails extends Component {
     }
 
     checkIfOwned = () => {
+        const { classes } = this.props;
         for(let i=0; i < this.props.reduxStore.userCollection.length; i++){
             console.log('checking if these two are equal:', this.props.reduxStore.userCollection[i].atlas_id, this.props.reduxStore.gameDetails.atlas_id)
             if (this.props.reduxStore.userCollection[i].atlas_id === this.props.reduxStore.gameDetails.atlas_id){
-                return <button onClick={this.handleRemove}>Remove from Collection</button>
+                return <Button size='small' variant='contained' color='secondary' className={classes.button} onClick={this.handleRemove}>Remove from Collection</Button>
             }
         }
-        return <button onClick={this.handleAdd}>Add to Collection</button>
+        return <Button size='small' variant='contained' color='primary' className={classes.button} onClick={this.handleAdd}>Add to Collection</Button>
     }
 
     render() {
         return (
             <>
-                <div>
+            <div>
+                <div className='gameImage'>
                     <img src={this.props.reduxStore.gameDetails.image} alt={this.props.reduxStore.gameDetails.name} />
                 </div>
-                <div>
+                <div className='gameDeets1'>
                     <h1> {this.props.reduxStore.gameDetails.name} </h1>
-                    <p>{this.props.reduxStore.gameDetails.year_published}</p>
-                    <h3>by {this.props.reduxStore.gameDetails.publisher}</h3>
+                    <h3>{this.props.reduxStore.gameDetails.year_published}</h3>
+                    <p>Publisher: {this.props.reduxStore.gameDetails.publisher}</p>
+                    <p>Rating: {Math.round(this.props.reduxStore.gameDetails.rating * 10) / 10}</p>
+                    <p>Players: {this.props.reduxStore.gameDetails.min_players} - {this.props.reduxStore.gameDetails.max_players}</p>
+                    <p>Playtime: {this.props.reduxStore.gameDetails.playtime} minutes</p>
+                    <p>Category: {categorize(this.props.reduxStore.gameDetails.category)}</p>
                     {this.checkIfOwned()}
                 </div>
-                <div>
-                    <ul>
-                        <li>Rating: {Math.round(this.props.reduxStore.gameDetails.rating * 10) / 10}</li>
-                        <li>Players: {this.props.reduxStore.gameDetails.min_players} - {this.props.reduxStore.gameDetails.max_players}</li>
-                        <li>Playtime: {this.props.reduxStore.gameDetails.playtime} minutes</li>
-                        <li>Category: {categorize(this.props.reduxStore.gameDetails.category)}</li>
-                    </ul>
-                </div>
-                <div>
+                <div className='gameDescription'>
                     {this.props.reduxStore.gameDetails.description}
                 </div>
+            </div>
             </>
         )
     }
@@ -102,4 +115,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(mapStateToProps)(GameDetails);
+export default connect(mapStateToProps)(withStyles(styles)(GameDetails));

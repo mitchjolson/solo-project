@@ -25,6 +25,22 @@ dark vanilla: #BDC4A7
 cinereous: #93827F
 */
 
+.gameImage {
+    float: left;
+    margin: 15px;
+    margin-right: 25px;
+}
+
+.gameDeets1 {
+    padding: 1px;    
+}
+
+
+.gameDescription {
+    display: inline-block;
+    margin: 15px;
+}
+
 .what {
     text-align: center;
 }
