@@ -14,15 +14,45 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
-const styles = {
-  card: {
-    maxWidth: 345,
+const CustomTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
   },
-  media: {
-    height: 140,
+  body: {
+    fontSize: 14,
   },
-};
+}))(TableCell);
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+    align: 'center',
+  },
+  row: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.background.default,
+    },
+  },
+});
 
 class FriendCollection extends Component {
 
@@ -44,6 +74,7 @@ class FriendCollection extends Component {
   }
 
   loadView = () => {
+    const { classes } = this.props;
     if(this.state.view === 'grid'){
       return (
         <>
@@ -58,28 +89,31 @@ class FriendCollection extends Component {
     else{
       return (
         <>
-          <table className="collectionTable">
-            <thead>
-              <tr><th>Game</th><th>Category</th><th>Players</th><th>Playtime</th><th>Rating</th><th>&nbsp;</th><th>&nbsp;</th></tr>
-            </thead>
-            <tbody>
+          <Paper className={classes.root}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow><CustomTableCell>Game</CustomTableCell><CustomTableCell align='right'>Category</CustomTableCell><CustomTableCell align='right'>Players</CustomTableCell><CustomTableCell align='right'>Playtime</CustomTableCell><CustomTableCell align='right'>Rating</CustomTableCell><CustomTableCell align='right'>&nbsp;</CustomTableCell></TableRow>
+              </TableHead>
+              <TableBody>
               {this.props.reduxStore.friendCollection.map((game, i) => {
                 return (<FriendCollectionItemTable key={i} game={game} history={this.props.history} />);
               })}
-            </tbody>
-          </table>
+              </TableBody>
+            </Table>
+          </Paper>
         </>
       )
     }
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <>
-      <div>
-        <h1>Collection</h1>
-        <button onClick={() => this.setView('table')}>Table</button>
-        <button onClick={() => this.setView('grid')}>Grid</button>
+        <div className="collectionDiv">
+        <h1>{this.props.reduxStore.activeFriend}'s Collection</h1>
+        <Button variant='contained' className={classes.button} onClick={() => this.setView('table')}>Table View</Button>
+        <Button variant='contained' className={classes.button} onClick={() => this.setView('grid')}>Grid View</Button>
       </div>
       {this.loadView()}
       <FriendLog/>
