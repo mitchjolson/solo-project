@@ -75,7 +75,7 @@ class Collection extends Component {
   render() {
     return (
       <>
-      <div>
+      <div className="collectionDiv">
         <p>
           Collection
         </p>
