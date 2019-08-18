@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
+
 class EventFriendsItem extends Component {
 
     checkStatus = (friend) => {
@@ -11,10 +25,10 @@ class EventFriendsItem extends Component {
                     return '';
                 }
             }
-            return (<li>
+            return (<p>
                         {friend.username}
-                        <button onClick={this.handleInvite}>Invite</button>
-                    </li>)
+                        <Button variant='text' color='primary' onClick={this.handleInvite}>Invite</Button>
+                    </p>)
         }
     }
 
@@ -37,4 +51,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(mapStateToProps)(EventFriendsItem);
+export default connect(mapStateToProps)(withStyles(styles)(EventFriendsItem));

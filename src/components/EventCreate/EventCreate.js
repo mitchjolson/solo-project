@@ -8,6 +8,21 @@ import EventGuestsItem from '../EventGuestsItem/EventGuestsItem';
 import EventGamesItem from '../EventGamesItem/EventGamesItem';
 import EventAgendaItem from '../EventAgendaItem/EventAgendaItem';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
+
 class EventCreate extends Component {
 
     state = {
@@ -53,56 +68,60 @@ class EventCreate extends Component {
 
     render() {
         return (
-            <>
-                <div>
-                    <p>Create Event</p>
-                </div>
-                <div>
-                    <p>Guest List</p>
-                    <ul>
+            <div className='what'>
+                    <h1>Create Event</h1>
+                <div className='eventGuests'>
+                    <h3>Guest List</h3>
+                    <div>
                         {this.props.reduxStore.eventCreateGuests.map((guest, i) => {
                             return (<EventGuestsItem key={i} guest={guest} history={this.props.history} />);
                         })}
-                    </ul>
-                    <p>Friends</p>
-                    <ul>
+                    </div>
+                    <br/>
+                    <h3>Friends</h3>
+                    <div>
                         {this.props.reduxStore.friends.map((friend, i) => {
                             return (<EventFriendsItem key={i} friend={friend} history={this.props.history} />);
                         })}
-                    </ul>
+                    </div>
                 </div>
-                <div>
-                    <p>Event Name</p>
-                    <input type="text" value={this.state.title} placeholder='Game Night!' onChange={(event) => this.handleChangeFor(event, 'title')}/>
+                <div className='eventDetails'>
                     <br/>
-                    <p>Location</p>
-                    <input type="text" value={this.state.location} onChange={(event) => this.handleChangeFor(event, 'location')} />
+                    <Input type="text" value={this.state.title} onChange={(event) => this.handleChangeFor(event, 'title')}/>
+                    <h4>Event Name</h4>
+                    <br/>
+                    <Input type="text" value={this.state.location} onChange={(event) => this.handleChangeFor(event, 'location')} />
+                    <h4>Location</h4>
                     <br />
-                    <p>Start Time</p>
-                    <input type="text" value={this.state.startTime} onChange={(event) => this.handleChangeFor(event, 'startTime')} />
+                    <Input type="text" value={this.state.startTime} onChange={(event) => this.handleChangeFor(event, 'startTime')} />
+                    <h4>Start Time</h4>
                     <br />
-                    <p>Date</p>
+                    <br/>
                     <DatePicker
                         selected={this.state.startDate}
                         onChange={this.handleChange}
-                    />
+                        />
+                    <br/>
+                    <br/>
+                    <br />
+                    <Button variant='contained' color='primary' onClick={this.handleCreateEvent}>Create Event</Button>
                 </div>
-                <div>
-                    <p>Agenda</p>
-                    <ul>
+                <div className='eventGames'>
+                    <h3>Agenda</h3>
+                    <div>
                         {this.props.reduxStore.eventCreateGames.map((game, i) => {
                             return (<EventAgendaItem key={i} game={game} history={this.props.history} />);
                         })}
-                    </ul>
-                    <p>My Games</p>
-                    <ul>
+                    </div>
+                    <br/>
+                    <h3>My Games</h3>
+                    <div>
                         {this.props.reduxStore.userCollection.map((game, i) => {
                             return (<EventGamesItem key={i} game={game} history={this.props.history} />);
                         })}
-                    </ul>
+                    </div>
                 </div>
-                <button onClick={this.handleCreateEvent}>Create Event</button>
-            </>
+            </div>            
         )
     }
 
@@ -112,4 +131,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 });
 
-export default connect(mapStateToProps)(EventCreate);
+export default connect(mapStateToProps)(withStyles(styles)(EventCreate));

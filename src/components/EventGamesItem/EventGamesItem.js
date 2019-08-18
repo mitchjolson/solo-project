@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
+
 class EventGamesItem extends Component {
 
     checkStatus = (game) => {
@@ -11,7 +25,7 @@ class EventGamesItem extends Component {
         }
         return (<p>
                     {game.name}
-                    <button onClick={this.handleAddGame}>Add</button>
+                    <Button variant='text' size='small' color='primary' onClick={this.handleAddGame}>Add</Button>
                 </p>)
     }
 
@@ -32,4 +46,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(mapStateToProps)(EventGamesItem);
+export default connect(mapStateToProps)(withStyles(styles)(EventGamesItem));

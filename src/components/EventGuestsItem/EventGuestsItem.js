@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
+
 class EventGuestsItem extends Component {
 
     checkStatus = (guest) => {
-            return (<li>
+            return (<p>
                         {guest.username}
-                        <button onClick={this.handleRemove}>remove</button>
-                    </li>)
+                        <Button variant='text' size='small' color='secondary' onClick={this.handleRemove}>remove</Button>
+                    </p>)
     }
 
     handleRemove = () => {
@@ -29,4 +44,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(mapStateToProps)(EventGuestsItem);
+export default connect(mapStateToProps)(withStyles(styles)(EventGuestsItem));
