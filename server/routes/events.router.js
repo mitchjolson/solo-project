@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 router.get('/details/:id', (req, res) => {
     console.log('getting event details, req.params.id is:', req.params.id)
-    const sqlText = `select creator_id, title, date, time, location, events.id, username as host from events join "user" on "user".id = events.creator_id where events.id = $1;`
+    const sqlText = `select creator_id, title, to_char(date, 'Month DD YYYY'), time, location, events.id, username as host from events join "user" on "user".id = events.creator_id where events.id = $1;`
     const sqlData = [req.params.id]
     pool.query(sqlText, sqlData)
         .then((response) => {

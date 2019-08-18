@@ -4,6 +4,20 @@ import GuestsItem from '../GuestsItem/GuestsItem';
 import GamesItem from '../GamesItem/GamesItem';
 import CollectionItemList from '../CollectionItem/CollectionItemList';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
+
 class EventDetails extends Component {
 
     state = {
@@ -23,14 +37,14 @@ class EventDetails extends Component {
                 console.log('in addgames, this.state.addGames =', this.state.addGames)
                 if (this.state.addGames === 1) {
                     return <><h3>My Games</h3>
-                        <ul>
+                        <div className='addGames'>
                             {this.props.reduxStore.userCollection.map((game, i) => {
                                 return (<CollectionItemList key={i} game={game} history={this.props.history} check='declined' />);
                             })}
-                        </ul></>
+                        </div></>
                 }
                 else {
-                    return <button onClick={() => this.setAddGames()}>Add Games</button>
+                    return <Button size='small' variant='contained' color='primary' onClick={() => this.setAddGames()}>Add Games</Button>
                 }
             }
         }
@@ -57,57 +71,71 @@ class EventDetails extends Component {
     checkInvite = () => {
         for(let i=0; i<this.props.reduxStore.eventGuests.length; i++){
             if( this.props.reduxStore.user.id === this.props.reduxStore.eventGuests[i].user_id && this.props.reduxStore.eventGuests[i].status === 'pending' ){
-                return <><p>RSVP</p> <button onClick={this.acceptInvite}>Accept</button> <button onClick={this.declineInvite}>Decline</button></>
+                return <><p>RSVP</p> <Button size='small' variant='contained' color='primary' onClick={this.acceptInvite}>Accept</Button> <Button size='small' variant='contained' color='secondary' onClick={this.declineInvite}>Decline</Button></>
             }
         }
     }
 
     render() {
         return (
-            <>
-            <div>
-                <h1>{this.props.reduxStore.eventDetails.title}</h1>
-                <h3>Hosted by {this.props.reduxStore.eventDetails.host}</h3>
+            <div className='what'>
+                <div className='eventGuests'>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br />
+                    <h3>Guest List</h3>
+                    <div>
+                        {this.props.reduxStore.eventGuests.map((guest, i) => {
+                            return (<GuestsItem key={i} guest={guest} history={this.props.history} check='accepted' />);
+                        })}
+                    </div>
+                    <br/>
+                    <h3>Pending Invitations</h3>
+                    <div>
+                        {this.props.reduxStore.eventGuests.map((guest, i) => {
+                            return (<GuestsItem key={i} guest={guest} history={this.props.history} check='pending' />);
+                        })}
+                    </div>
+                    <br/>
+                    <h3>Declined</h3>
+                    <div>
+                        {this.props.reduxStore.eventGuests.map((guest, i) => {
+                            return (<GuestsItem key={i} guest={guest} history={this.props.history} check='declined' />);
+                        })}
+                    </div>
+                </div >
+                <div className='eventDetails'>
+                    <br/>
+                    <h1>{this.props.reduxStore.eventDetails.title}</h1>
+                    {this.checkInvite()}
+                    <br/>
+                    <h3>Hosted by {this.props.reduxStore.eventDetails.host}</h3>
+                    <h3>{this.props.reduxStore.eventDetails.location}</h3>
+                    <h3>{this.props.reduxStore.eventDetails.to_char}</h3>
+                    <h3>{this.props.reduxStore.eventDetails.time}</h3>
+                </div>
+                <div className='eventGames'>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h3>Agenda</h3>
+                    <div>
+                        {this.props.reduxStore.eventGames.map((game, i) => {
+                            return (<GamesItem key={i} game={game} history={this.props.history} check='declined' />);
+                        })}
+                    </div>
+                    <br/>
+                    {this.addGames()}
+                    {/* <h3>My Games</h3>
+                    <ul>
+                        {this.props.reduxStore.userCollection.map((game, i) => {
+                            return (<CollectionItemList key={i} game={game} history={this.props.history} check='declined' />);
+                        })}
+                    </ul> */}
+                </div>
             </div>
-            <div>
-                {this.checkInvite()}
-            </div>
-            <div>
-                <h3>Guest List</h3>
-                <ul>
-                    {this.props.reduxStore.eventGuests.map((guest, i) => {
-                        return (<GuestsItem key={i} guest={guest} history={this.props.history} check='accepted' />);
-                    })}
-                </ul>
-                <h3>Pending Invitations</h3>
-                <ul>
-                    {this.props.reduxStore.eventGuests.map((guest, i) => {
-                        return (<GuestsItem key={i} guest={guest} history={this.props.history} check='pending' />);
-                    })}
-                </ul>
-                <h3>Declined</h3>
-                <ul>
-                    {this.props.reduxStore.eventGuests.map((guest, i) => {
-                        return (<GuestsItem key={i} guest={guest} history={this.props.history} check='declined' />);
-                    })}
-                </ul>
-            </div>
-            <div>
-                <h3>Agenda</h3>
-                <ul>
-                    {this.props.reduxStore.eventGames.map((game, i) => {
-                        return (<GamesItem key={i} game={game} history={this.props.history} check='declined' />);
-                    })}
-                </ul>
-                {this.addGames()}
-                {/* <h3>My Games</h3>
-                <ul>
-                    {this.props.reduxStore.userCollection.map((game, i) => {
-                        return (<CollectionItemList key={i} game={game} history={this.props.history} check='declined' />);
-                    })}
-                </ul> */}
-            </div>
-            </>
         )
     }
 
@@ -117,4 +145,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 });
 
-export default connect(mapStateToProps)(EventDetails);
+export default connect(mapStateToProps)(withStyles(styles)(EventDetails));

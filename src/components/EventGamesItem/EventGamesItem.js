@@ -9,10 +9,10 @@ class EventGamesItem extends Component {
                 return '';
             }
         }
-        return (<li>
+        return (<p>
                     {game.name}
                     <button onClick={this.handleAddGame}>Add</button>
-                </li>)
+                </p>)
     }
 
     handleAddGame = () => {

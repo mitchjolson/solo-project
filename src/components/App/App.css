@@ -25,6 +25,37 @@ dark vanilla: #BDC4A7
 cinereous: #93827F
 */
 
+.addGames {
+    margin: 10px;
+    padding-left: 50px;
+    height: 300px;
+    overflow: scroll;
+}
+
+.eventDetails {
+    width: 33%;
+    height: 600px;
+    text-align: center;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    float: left;
+    margin-top: 10px;
+}
+
+.eventGuests {
+    width: 33%;
+    text-align: center;
+    float: left;
+    margin-top: 10px;
+}
+
+.eventGames {
+    width: 33%;
+    text-align: center;
+    float: left;
+    margin-top: 10px;
+}
+
 .gameImage {
     float: left;
     margin: 15px;

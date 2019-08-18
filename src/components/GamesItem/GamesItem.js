@@ -6,9 +6,9 @@ class GamesItem extends Component {
     render() {
         return (
             <>
-            <li>
+            <p>
                 {this.props.game.name} - {this.props.game.username}
-            </li>
+            </p>
             </>
         );
     }

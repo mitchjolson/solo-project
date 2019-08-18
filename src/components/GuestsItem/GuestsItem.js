@@ -5,9 +5,9 @@ class GuestsItem extends Component {
 
     checkStatus = (guest) => {
         if(guest.status === this.props.check){
-            return (<li>
+            return (<p>
                         {guest.username}
-                    </li>)
+                    </p>)
         }
     }
 
