@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/users/:id', (req, res) => {
     console.log('getting list of users, req.params.id is:', req.params.id)
-    const sqlText = 'select id, username from "user" where not "user".id = $1;'
+    const sqlText = 'select id, username from "user" where not "user".id = $1 order by username asc;'
     const sqlData = [req.params.id]
     pool.query(sqlText, sqlData)
         .then((response) => {

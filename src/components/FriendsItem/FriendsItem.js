@@ -2,15 +2,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
+
 class FriendsItem extends Component {
 
     checkStatus = (friend) => {
         if(friend.status === 'accepted'){
-            return (<li>
-                        {this.props.friend.username}
-                        <button onClick={this.handleCollection}>Collection</button>
-                        <button onClick={this.handleRemove}>Remove</button>
-                    </li>)
+            return (<p>
+                        {this.props.friend.username} -
+                        <Button variant='text' size='small' color='primary' onClick={this.handleCollection}>Collection</Button>
+                         - 
+                        <Button variant='text' size='small' color='secondary' onClick={this.handleRemove}>Remove</Button>
+                    </p>)
         }
     }
 
@@ -59,4 +74,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(mapStateToProps)(FriendsItem);
+export default connect(mapStateToProps)(withStyles(styles)(FriendsItem));

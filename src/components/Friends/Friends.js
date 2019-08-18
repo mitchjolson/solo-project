@@ -15,26 +15,32 @@ class Friends extends Component {
 
     render() {
         return (
-            <>
-                <h1>Friends</h1>
-                    <ul>
-                        {this.props.reduxStore.friends.map((friend, i) => {
-                            return (<FriendsItem key={i} friend={friend} history={this.props.history} />);
-                        })}
-                    </ul>
-                <h1>Users</h1>
-                    <ul>
+            <div className='what'>
+                <div className='eventGuests'>
+                    <h1>Users</h1>
+                    <div>
                         {this.props.reduxStore.users.map((user, i) => {
                             return (<UsersItem key={i} user={user} history={this.props.history} />);
                         })}
-                    </ul>
+                    </div>
+                </div>
+                <div className='eventDetails'>
+                    <h1>Friends</h1>
+                    <div>
+                        {this.props.reduxStore.friends.map((friend, i) => {
+                            return (<FriendsItem key={i} friend={friend} history={this.props.history} />);
+                        })}
+                    </div>
+                </div>
+                <div className='eventGames'>
                 <h1>Requests</h1>
-                    <ul>
+                    <div>
                         {this.props.reduxStore.friendRequests.map((request, i) => {
                             return (<PendingItem key={i} request={request} history={this.props.history} />);
                         })}
-                    </ul>
-            </>
+                    </div>
+                </div>
+            </div>
         )
     }
 

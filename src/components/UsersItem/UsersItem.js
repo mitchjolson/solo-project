@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
+
 class UsersItem extends Component {
 
     handleAdd = () => {
@@ -19,15 +33,15 @@ class UsersItem extends Component {
                 return <></>;
             }
             else if (user.username === friends[i].username && friends[i].status === 'pending') {
-                return <li>
-                        {this.props.user.username} (request pending)
-                    </li>
+                return <p>
+                        {this.props.user.username} - (request pending)
+                    </p>
             }
         }
-        return <li>
-                    {this.props.user.username}
-                    <button onClick = {this.handleAdd}>Send Friend Request</button>
-                </li>
+        return <p>
+                    {this.props.user.username} - 
+                    <Button variant='text' size='small' color='primary' onClick = {this.handleAdd}>Send Request</Button>
+                </p>
     }
 
     render() {
@@ -43,4 +57,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(mapStateToProps)(UsersItem);
+export default connect(mapStateToProps)(withStyles(styles)(UsersItem));

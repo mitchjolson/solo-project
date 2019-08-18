@@ -115,7 +115,7 @@ class EventCreate extends Component {
                     </div>
                     <br/>
                     <h3>My Games</h3>
-                    <div>
+                    <div className='addGames'>
                         {this.props.reduxStore.userCollection.map((game, i) => {
                             return (<EventGamesItem key={i} game={game} history={this.props.history} />);
                         })}

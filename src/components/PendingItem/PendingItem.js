@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// Material UI
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
+
 class PendingItem extends Component {
 
     acceptRequest = () => {
@@ -22,11 +36,12 @@ class PendingItem extends Component {
     render() {
         return (
             <>
-                <li>
-                    {this.props.request.username}
-                    <button onClick={this.acceptRequest}>Accept</button>
-                    <button onClick={this.denyRequest}>Ignore</button>
-                </li>
+                <p>
+                    {this.props.request.username} - 
+                    <Button variant='text' size='small' color='primary' onClick={this.acceptRequest}>Accept</Button>
+                     - 
+                    <Button variant='text' size='small' color='secondary' onClick={this.denyRequest}>Ignore</Button>
+                </p>
             </>
         );
     }
@@ -36,4 +51,4 @@ const mapStateToProps = (reduxStore) => ({
     reduxStore
 })
 
-export default connect(mapStateToProps)(PendingItem);
+export default connect(mapStateToProps)(withStyles(styles)(PendingItem));
