@@ -63,6 +63,7 @@ class EventCreate extends Component {
             games: this.props.reduxStore.eventCreateGames
         }
         this.props.dispatch({ type: 'CREATE_EVENT', payload: data});
+        this.props.dispatch({ type: 'FETCH_EVENTS', payload: this.props.reduxStore.user.id });
         this.props.history.push('/events');
     }
 
