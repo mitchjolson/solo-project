@@ -20,6 +20,20 @@ CREATE TABLE "games" (
   "image" varchar,
 );
 
+CREATE TABLE "categories"
+(
+  "id" serial,
+  "category_id" varchar(100),
+  "category_name" varchar(100)
+);
+
+CREATE TABLE "game_categories"
+(
+  "id" serial PRIMARY KEY,
+  "game_id" varchar references games,
+  "category_id" varchar references categories
+);
+
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
